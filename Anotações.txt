@@ -79,6 +79,12 @@ O que é uma arquitetura?
 			- Interfaces (de serviços da infra-estrutura, domínio, repositórios): utilizadas
 			em diferentes camadas, como API, Aplicação e Infraestrutura;
 			- Exceções de domínio: exceções específicas a cenários de problema no fluxo de negócio.
+	
+	- Camada Infrastructure
+		- Camada responsável por código de infraestrutura, como acesso a dados, conexão com serviços
+		de computação na nuvem, integração entre sistema, entre outros;
+		- Cada um desses sub0itens pode ser dividido em projetos próprios, como Persistence, Integration e
+		CloudService.
 ============================================================================================
 Inversão de Dependencia e Interfaces:
 	- Refere ao SOLI(D):
