@@ -29,6 +29,9 @@ namespace DevFreela.API
         {
             services.Configure<OpeningTimeOption>(Configuration.GetSection("OpeninTime")); //Fazendo isso eu posso consumir o appsettings.json via uma classe c#
 
+            services.AddSingleton<ExampleClass>(e => new ExampleClass { Name = "Initial Stage" });
+
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

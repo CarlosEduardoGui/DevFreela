@@ -36,3 +36,59 @@ Configurações:
 	- IConfiguration, esta interface permite fazer configurações de várias fontes
 	para a aplicação, como por exemplo: variáveis de ambiente, Azure Key Vault,
 	arquivos de configuração, entre outros.
+	
+============================================================================================
+Injeção de Dependencia:
+	- Está é uma técnica que permite a inserção de um objeto em outro, criando uma
+	relação de dependência.
+	- No .NET podemos colocar 3 tipos de ciclo de vida:
+		- Singleton: uma instância por aplicação inteira;
+		- Scoped: uma instância por requisição;
+		- Transient: uma instância por classe;
+============================================================================================
+O que é uma arquitetura?
+	- Organização fundamental do sistema, incluindo os componentes, relacionamento entre eles,
+	o ambiente, os principios. (Não existe arquitetura errada).
+	- Existem dois tipos de arquiteturas mais conhecidas:
+		- Arquitetura Distribuidas: componentes do sistema que estão sendo execuadas
+		em outros processos, geralmente em outros servidores;
+		- Monolítica: componentes do sistema executam no mesmo processo, na mesma máquina;
+		- Se o assembly é criado no mesmo projeto, é monolítico;
+	- Arquitetura limpa tem o foco no domínio (DDD) e é dividida em 4 camadas:
+		- Core
+		- Infrastructure
+		- Application
+		- API/Interface
+	
+	- Camada Core(Domain):
+		- Cama mais importante. Aqui é onde o foco  de desenvolvimento inicial deve estar.
+		- Conceitos do DDD que a camada Core irá utilizar:
+			- Agregados: padrão que representa um conjunto de objetos do domínio
+			que podem ser tratador como um só;
+			- Repositórios: abstrações que representam acesso a objetos de domínio;
+			- Linguagem Ubíqua: modelo de linguagem universal para comunicação entre
+			desenvolvedores e analistas de negócios;
+			
+		- Componentes:
+			- Entidades;
+			- Enums;
+			- Data Access Objects (DTO)
+			- Serviços de camadas de domínio: quando uma operação do dominio envolve
+			múltiplas classes ou estados, extrapolando responsabilidades, um serviço de cada
+			domínio é indicado. (Logica de negocio usa mais de uma classe)
+			- Interfaces (de serviços da infra-estrutura, domínio, repositórios): utilizadas
+			em diferentes camadas, como API, Aplicação e Infraestrutura;
+			- Exceções de domínio: exceções específicas a cenários de problema no fluxo de negócio.
+============================================================================================
+Inversão de Dependencia e Interfaces:
+	- Refere ao SOLI(D):
+		- Módulos de alto nível não devem depender de módulos de baixo nível.
+		Ambos devem depender de abstrações;
+		- Abstrações não devem depender de detalhes. Detalhes devem depender
+		de abstrações;
+		- Baixo nível = classes concretas;
+		- Para resolver o problema, as classes devem depender de interface, 
+		que são abstrações que representam contratos.
+		
+	-
+		
