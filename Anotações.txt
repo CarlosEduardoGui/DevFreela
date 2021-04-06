@@ -1,0 +1,29 @@
+Modelando o domínio:
+	Técnica de narrativa:
+		- Descreve a solução, do ponto de vista mais fiel do usuário. (O que ele quer fazer no sistema?)
+		- Analisar os substantivos empregados na descrição,  possivelmente irá se ornar uma entidade;
+		- Verbos utilizados serão possíveis candidatos a se tornar funcionaldades ou métodos;
+
+Protocolos HTTP:
+	- Status que começam com 2 são status de sucesso (requisição)
+		
+O que é uma API Rest?
+	- Representation State Transfer, é um padrã de comunicação entre sistemas.
+		
+Introdução ao ASP.NET Core
+	- Framework open-source, multiplataforma.
+	
+	Solução é como se fosse o "container" porque ele terá multi camadas
+
+	Como criar um projeto via linha de comando:
+		- dotnet new --help (comandos)
+		- dotnet new sln --name "Nome da solucao"
+		- dotnet new 'tipo do projeto' --name "Nome do projeto" --output "caminho aonde vai salvar"
+		- dotnet sln add "caminho do projeto" - Isso pra linkar a solução com o projeto;
+		- dotnet build
+		- dotnet restore 'restaurar os pacotes'
+		- dotnet run
+
+Controllers:
+	- São componentes que definem e agrupam um conjunti de ações, agrupam
+	ações de maneira logica, baseada no recurso a ser tradado e/ou acessado.
