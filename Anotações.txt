@@ -3,13 +3,13 @@ Modelando o domínio:
 		- Descreve a solução, do ponto de vista mais fiel do usuário. (O que ele quer fazer no sistema?)
 		- Analisar os substantivos empregados na descrição,  possivelmente irá se ornar uma entidade;
 		- Verbos utilizados serão possíveis candidatos a se tornar funcionaldades ou métodos;
-
+============================================================================================
 Protocolos HTTP:
 	- Status que começam com 2 são status de sucesso (requisição)
-		
+============================================================================================		
 O que é uma API Rest?
 	- Representation State Transfer, é um padrã de comunicação entre sistemas.
-		
+============================================================================================	
 Introdução ao ASP.NET Core
 	- Framework open-source, multiplataforma.
 	
@@ -23,7 +23,16 @@ Introdução ao ASP.NET Core
 		- dotnet build
 		- dotnet restore 'restaurar os pacotes'
 		- dotnet run
-
+============================================================================================
 Controllers:
 	- São componentes que definem e agrupam um conjunti de ações, agrupam
 	ações de maneira logica, baseada no recurso a ser tradado e/ou acessado.
+	- Retorno do IActionResult é geralmente o mais usado pois ele implementa
+	respostas padrão do HTTP;
+
+============================================================================================
+
+Configurações:
+	- IConfiguration, esta interface permite fazer configurações de várias fontes
+	para a aplicação, como por exemplo: variáveis de ambiente, Azure Key Vault,
+	arquivos de configuração, entre outros.
