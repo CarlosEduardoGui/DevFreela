@@ -26,7 +26,7 @@ namespace DevFreela.Application.Services.Implementations
             return project.Id;
         }
 
-        public void CreateContent(CreateCommentInputModel model)
+        public void CreateComment(CreateCommentInputModel model)
         {
             var comment = new ProjectComment(model.Content, model.IdProject, model.IdUser);
 
@@ -60,6 +60,8 @@ namespace DevFreela.Application.Services.Implementations
         public ProjectDetailsViewModel GetById(int id)
         {
             var project = _dbContext.Projects.SingleOrDefault(p => p.Id == id);
+
+            if (project == null) return null;
 
             var projectDetailsViewModel = new ProjectDetailsViewModel(
                 project.Id,

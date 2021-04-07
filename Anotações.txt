@@ -54,7 +54,7 @@ O que é uma arquitetura?
 		em outros processos, geralmente em outros servidores;
 		- Monolítica: componentes do sistema executam no mesmo processo, na mesma máquina;
 		- Se o assembly é criado no mesmo projeto, é monolítico;
-	- Arquitetura limpa tem o foco no domínio (DDD) e é dividida em 4 camadas:
+	- Arquitetura limpa (Onion Architecture) tem o foco no domínio (DDD) e é dividida em 4 camadas:
 		- Core
 		- Infrastructure
 		- Application
@@ -83,7 +83,7 @@ O que é uma arquitetura?
 	- Camada Infrastructure
 		- Camada responsável por código de infraestrutura, como acesso a dados, conexão com serviços
 		de computação na nuvem, integração entre sistema, entre outros;
-		- Cada um desses sub0itens pode ser dividido em projetos próprios, como Persistence, Integration e
+		- Cada um desses subitens pode ser dividido em projetos próprios, como Persistence, Integration e
 		CloudService.
 		
 		- Componentes:
@@ -103,6 +103,14 @@ O que é uma arquitetura?
 			- Modelos de entrada e saída: classes, que podem ser consideradas DTOs, responsáveis por definir
 			propriedades de objetos de entrada e saida, endpoints/funcionalidades;
 	
+	- Camada API
+		- Camada responsável pelo código da interface (seja ela uma API, ou MVC)
+		- Esta camada depende de todas as outroas. Nela é feita a configuração de injeção de dependência envolvendo
+		as interfaces contidas no Core, e das implementações contidas na Infrastructure e Core.
+		
+		- Componentes:
+			- Controllers: classes responsáveis por definir os pontos de acesso de API;
+			- Filters: classes que influenciam no processamento e fluxo das requisições.
 ============================================================================================
 Inversão de Dependencia e Interfaces:
 	- Refere ao SOLI(D):
@@ -114,5 +122,10 @@ Inversão de Dependencia e Interfaces:
 		- Para resolver o problema, as classes devem depender de interface, 
 		que são abstrações que representam contratos.
 		
-	-
+1) Core(Domain), API, Infrastrucuture e Application
+2) Arquitetura de cebola
+3) Core também é conhecido como Domain
+4) Agregado é a estrutura de entidades e objetos de valor realizados de forma coesa afim de garantir a expressividade do dominio
+5) 
+6) DTO são os objetos de transferencia de dados. Input Models e View Models também são DTOs, porém, com suas particularidades. O Input Models irá representar os dados que o usuário necessita passar, enquanto o View Models irá mostrar somente alguns dados para o usuário. Isso é feito para que determinados dados fiquem "privados" de serem modificados ou visualizados pelo usuário.
 		
