@@ -85,6 +85,24 @@ O que é uma arquitetura?
 		de computação na nuvem, integração entre sistema, entre outros;
 		- Cada um desses sub0itens pode ser dividido em projetos próprios, como Persistence, Integration e
 		CloudService.
+		
+		- Componentes:
+			- Acesso ao dados: classe responsáveis pelo acesso a dados.
+			- Serviços de infraestrutura: classe responsáveis por acecsso a recursos na nuvem,
+			integração com outros sistema, APIs de consulta...
+	
+	- Camada Application
+		- Camada responsável por código de aplicação, onde as funcionalidades expostas vão estar,
+		em forma de serviços. (Modelos de entrada de saída ficam dentro desta camada)
+		- Também contém os modelos de entreda e saída da aplicação, que serão utilizados diretamente
+		na API (seja no retorno da API ou no corpo da requisição);
+		
+		- Componentes
+			- Serviços: classes responsáveis pelas funcionalidades expostas, geralmente sendo criado
+			um por cada entidade.
+			- Modelos de entrada e saída: classes, que podem ser consideradas DTOs, responsáveis por definir
+			propriedades de objetos de entrada e saida, endpoints/funcionalidades;
+	
 ============================================================================================
 Inversão de Dependencia e Interfaces:
 	- Refere ao SOLI(D):

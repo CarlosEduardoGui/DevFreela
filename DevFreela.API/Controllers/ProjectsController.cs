@@ -1,10 +1,6 @@
 ﻿using DevFreela.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DevFreela.API.Controllers
 {
@@ -35,7 +31,7 @@ namespace DevFreela.API.Controllers
         public IActionResult Post([FromBody] CreateProjectModel model)
         {
             //return BadRequest();
-            return CreatedAtAction(nameof(GetById), new { id = model.Id}, model); //Fazendo assim devolvo o modelo que foi criado, seu ID e o método da API que pode fazer a consulta com base neste ID
+            return CreatedAtAction(nameof(GetById), new { id = model.Id }, model); //Fazendo assim devolvo o modelo que foi criado, seu ID e o método da API que pode fazer a consulta com base neste ID
         }
 
         [HttpPut("{id}")]
