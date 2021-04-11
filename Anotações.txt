@@ -88,7 +88,7 @@ O que é uma arquitetura?
 		
 		- Componentes:
 			- Acesso ao dados: classe responsáveis pelo acesso a dados.
-			- Serviços de infraestrutura: classe responsáveis por acecsso a recursos na nuvem,
+			- Serviços de infraestrutura: classe responsáveis por acesso a recursos na nuvem,
 			integração com outros sistema, APIs de consulta...
 	
 	- Camada Application
@@ -121,3 +121,15 @@ Inversão de Dependencia e Interfaces:
 		- Baixo nível = classes concretas;
 		- Para resolver o problema, as classes devem depender de interface, 
 		que são abstrações que representam contratos.
+		
+============================================================================================
+Relacionamento no EntityFramework
+
+	- Para configurar o relacionamento entre as classes, devemos colocar um atributo que representa
+	a ForeingKey da tabela e um atributo da classe que representa a FK.
+	No "mapping", vamos apontar que a tabela A possui uma chave estrangeira da tabela B
+	============================================================================================
+	Banco de dados em Memória
+	Instalar o pacote Microsoft.EntityFrameworkCore.InMemory
+	
+	Adicionar na Startup.cs, services.AddDbContext<DbContext>(options => options.UseInMemoryDatabase("db"));

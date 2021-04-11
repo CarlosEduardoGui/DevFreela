@@ -1,8 +1,12 @@
-﻿using DevFreela.Application.InputModels;
+﻿using Dapper;
+using DevFreela.Application.InputModels;
 using DevFreela.Application.Services.Interfaces;
 using DevFreela.Application.ViewModels;
 using DevFreela.Core.Entities;
 using DevFreela.Infrastructure.Persistence;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,9 +15,11 @@ namespace DevFreela.Application.Services.Implementations
     public class ProjectService : IProjectService
     {
         private readonly DevFreelaDbContext _dbContext;
-
-        public ProjectService(DevFreelaDbContext context)
+        private readonly string _connectionString;
+        public ProjectService(DevFreelaDbContext context, IConfiguration configuration)
         {
+            _connectionString = configuration.GetConnectionString("DevFreelaCs");
+
             _dbContext = context;
         }
 
@@ -22,6 +28,7 @@ namespace DevFreela.Application.Services.Implementations
             var project = new Project(model.Title, model.Description, model.IdClient, model.IdFreelancer, model.TotalCost);
 
             _dbContext.Projects.Add(project);
+            _dbContext.SaveChanges();
 
             return project.Id;
         }
@@ -31,6 +38,7 @@ namespace DevFreela.Application.Services.Implementations
             var comment = new ProjectComment(model.Content, model.IdProject, model.IdUser);
 
             _dbContext.Comments.Add(comment);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
@@ -38,6 +46,7 @@ namespace DevFreela.Application.Services.Implementations
             var project = _dbContext.Projects.SingleOrDefault(p => p.Id == id);
 
             project.Cancel();
+            _dbContext.SaveChanges();
         }
 
         public void Finish(int id)
@@ -59,7 +68,10 @@ namespace DevFreela.Application.Services.Implementations
 
         public ProjectDetailsViewModel GetById(int id)
         {
-            var project = _dbContext.Projects.SingleOrDefault(p => p.Id == id);
+            var project = _dbContext.Projects
+                .Include(x => x.Client)
+                .Include(x => x.Freelancer)
+                .SingleOrDefault(p => p.Id == id);
 
             if (project == null) return null;
 
@@ -69,7 +81,9 @@ namespace DevFreela.Application.Services.Implementations
                 project.Description,
                 project.TotalCost,
                 project.StartedAt,
-                project.FinishedAt
+                project.FinishedAt,
+                project.Client.FullName,
+                project.Freelancer.FullName
                 );
 
             return projectDetailsViewModel;
@@ -80,11 +94,20 @@ namespace DevFreela.Application.Services.Implementations
             var project = _dbContext.Projects.SingleOrDefault(p => p.Id == id);
 
             project.Start();
+            //_dbContext.SaveChanges();
+
+            using(var sqlConnection = new SqlConnection(_connectionString))
+            {
+                var script = "UPDATE Projects SET Status = @status, StartedAt = @startedAt WHERE Id = @id";
+
+                sqlConnection.Execute(script, new { status = project.Status, startedAt = project.StartedAt, id });
+            }
         }
 
         public void Update(UpdateProjectInputModel model)
         {
             var project = _dbContext.Projects.SingleOrDefault(p => p.Id == model.Id);
+            _dbContext.SaveChanges();
 
         }
     }

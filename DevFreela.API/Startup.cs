@@ -4,6 +4,7 @@ using DevFreela.Application.Services.Interfaces;
 using DevFreela.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,9 +26,11 @@ namespace DevFreela.API
         {
             services.Configure<OpeningTimeOption>(Configuration.GetSection("OpeninTime")); //Fazendo isso eu posso consumir o appsettings.json via uma classe c#
 
-            services.AddSingleton<DevFreelaDbContext>();
+            services.AddDbContext<DevFreelaDbContext>(options =>
+                            options.UseSqlServer(Configuration.GetConnectionString("DevFreelaCs")));
 
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

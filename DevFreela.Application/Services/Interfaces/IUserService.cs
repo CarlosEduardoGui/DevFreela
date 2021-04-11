@@ -1,9 +1,12 @@
-﻿using DevFreela.Application.ViewModels;
+﻿using DevFreela.Application.InputModels;
+using DevFreela.Application.ViewModels;
 
 namespace DevFreela.Application.Services.Interfaces
 {
     public interface IUserService
     {
-        UserViewModel GetUserById(int id);
+        UserViewModel GetUser(int id);
+
+        int Create(CreateUserInputModel inputModel);
     }
 }
