@@ -1,6 +1,11 @@
-﻿using DevFreela.Application.InputModels;
+﻿using DevFreela.Application.Commands.CreateComment;
+using DevFreela.Application.Commands.CreateProject;
+using DevFreela.Application.Commands.DeleteProject;
+using DevFreela.Application.Commands.UpdateProject;
 using DevFreela.Application.Services.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace DevFreela.API.Controllers
 {
@@ -9,9 +14,12 @@ namespace DevFreela.API.Controllers
     {
         private readonly IProjectService _projectService;
 
-        public ProjectsController(IProjectService projectService)
+        private readonly IMediator _mediator;
+
+        public ProjectsController(IProjectService projectService, IMediator mediator)
         {
             _projectService = projectService;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -31,37 +39,36 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] NewProjectInputModel model)
+        public async Task<IActionResult> Post([FromBody] CreateProjectCommand command)
         {
             //return BadRequest();
 
-            return CreatedAtAction(nameof(GetById), new { id = _projectService.Create(model) }, model); //Fazendo assim devolvo o modelo que foi criado, seu ID e o método da API que pode fazer a consulta com base neste ID
+            var id = await _mediator.Send(command);
+
+            return CreatedAtAction(nameof(GetById), new { id = id }, command); //Fazendo assim devolvo o modelo que foi criado, seu ID e o método da API que pode fazer a consulta com base neste ID
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] UpdateProjectInputModel model)
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateProjectCommand command)
         {
-            //return BadRequest();
 
-            _projectService.Update(model);
+            await _mediator.Send(command);
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            //return NotFound();
-
-            _projectService.Delete(id);
+            await _mediator.Send(new DeleteProjectCommand(id));
 
             return NoContent();
         }
 
         [HttpPost("{id}/comments")]
-        public IActionResult PostComment(int id, [FromBody] CreateCommentInputModel model)
+        public async Task<IActionResult> PostComment(int id, [FromBody] CreateCommentCommand command)
         {
-            _projectService.CreateComment(model);
+            await _mediator.Send(command);
 
             return NoContent();
         }

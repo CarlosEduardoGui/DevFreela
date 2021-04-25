@@ -22,7 +22,7 @@ namespace DevFreela.Application.Services.Implementations
 
         public List<SkillViewModel> GetAll()
         {
-            using(var sqlConnection = new SqlConnection(_connectionString))
+            using (var sqlConnection = new SqlConnection(_connectionString))
             {
                 sqlConnection.Open();
 

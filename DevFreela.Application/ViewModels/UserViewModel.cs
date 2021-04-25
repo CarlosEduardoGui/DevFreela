@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DevFreela.Application.ViewModels
+﻿namespace DevFreela.Application.ViewModels
 {
     public class UserViewModel
     {

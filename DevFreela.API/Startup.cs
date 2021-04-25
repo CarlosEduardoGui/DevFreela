@@ -1,7 +1,11 @@
-using DevFreela.API.Models;
+using DevFreela.Application.Commands.CreateComment;
+using DevFreela.Application.Commands.CreateProject;
+using DevFreela.Application.Commands.DeleteProject;
+using DevFreela.Application.Commands.UpdateProject;
 using DevFreela.Application.Services.Implementations;
 using DevFreela.Application.Services.Interfaces;
 using DevFreela.Infrastructure.Persistence;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -24,8 +28,6 @@ namespace DevFreela.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<OpeningTimeOption>(Configuration.GetSection("OpeninTime")); //Fazendo isso eu posso consumir o appsettings.json via uma classe c#
-
             services.AddDbContext<DevFreelaDbContext>(options =>
                             options.UseSqlServer(Configuration.GetConnectionString("DevFreelaCs")));
 
@@ -33,6 +35,13 @@ namespace DevFreela.API
             services.AddScoped<IUserService, UserService>();
 
             services.AddControllers();
+
+            services.AddMediatR(typeof(CreateProjectCommand)); //vai buscar todos os IResquestHandler que estão sendo implementados e irá associar os commands respectivos a eles
+
+            services.AddMediatR(typeof(CreateCommentCommand));
+            services.AddMediatR(typeof(DeleteProjectCommand));
+            services.AddMediatR(typeof(UpdateProjectCommand));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DevFreela.API", Version = "v1" });

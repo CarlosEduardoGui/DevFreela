@@ -133,3 +133,33 @@ Relacionamento no EntityFramework
 	Instalar o pacote Microsoft.EntityFrameworkCore.InMemory
 	
 	Adicionar na Startup.cs, services.AddDbContext<DbContext>(options => options.UseInMemoryDatabase("db"));
+============================================================================================
+O que é o CQRS?
+	- Command-Query Responsibility Segregation
+	- Basicamente, ele separa as Consultas das ações que alteram o estado do Sistema
+	- Geralmente fica na camada de aplicação
+	
+	- Devido a essa separação lógica, facilita o uso de mais de um banco de dados. Mas isso pode gerar problema
+	na consistência de dados.
+	
+	O que são Commands:
+		- Representam ações no sistema, que realizam alterações no estado dele;
+		- Podem ser mapeados de 1 para 1 a partir dos métodos de serviços de aplicação;
+		- Geralmente sao nomeados com o sufixo Command;
+		- Os Commands contém as informações necessárias para ação, sendo similar ao modelo
+		de entrada utilizando pelo serviço de aplicação;
+		- Para cada Command deverá existir um CommandHandler, que é a classe lida com aquele comando;
+		
+	O que são Querys:
+		- Representam consultas no sistema, que NÃO realizam alterações no estado dele;
+		- Podem ser mapeados de 1 para 1 a partir dos métodos de serviços de aplicação;
+		- Geralmente são nomeados com o sufixo Query;
+		- As queries contém as informações necessárias para a consulta, por exemplo, contendo o identificador
+		ou parametros de busca;
+		- Para cada Query deverá existir um QueryHandler, que é a classe que lida com aquela consulta;
+		
+	O que é o MediatR
+		- Implementa o padrão mediator, oferecendo uma espécie de mensageria interna em memória;
+		- Tem suporte a Commands e Queries, delegando eles para serem processados pelo seus respectivos Handlers;
+		- Pacote MediatR e MediatR.Extensions.Microsoft.DependencyInjection
+	

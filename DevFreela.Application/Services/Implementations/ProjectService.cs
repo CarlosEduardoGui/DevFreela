@@ -1,8 +1,6 @@
 ﻿using Dapper;
-using DevFreela.Application.InputModels;
 using DevFreela.Application.Services.Interfaces;
 using DevFreela.Application.ViewModels;
-using DevFreela.Core.Entities;
 using DevFreela.Infrastructure.Persistence;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -21,32 +19,6 @@ namespace DevFreela.Application.Services.Implementations
             _connectionString = configuration.GetConnectionString("DevFreelaCs");
 
             _dbContext = context;
-        }
-
-        public int Create(NewProjectInputModel model)
-        {
-            var project = new Project(model.Title, model.Description, model.IdClient, model.IdFreelancer, model.TotalCost);
-
-            _dbContext.Projects.Add(project);
-            _dbContext.SaveChanges();
-
-            return project.Id;
-        }
-
-        public void CreateComment(CreateCommentInputModel model)
-        {
-            var comment = new ProjectComment(model.Content, model.IdProject, model.IdUser);
-
-            _dbContext.Comments.Add(comment);
-            _dbContext.SaveChanges();
-        }
-
-        public void Delete(int id)
-        {
-            var project = _dbContext.Projects.SingleOrDefault(p => p.Id == id);
-
-            project.Cancel();
-            _dbContext.SaveChanges();
         }
 
         public void Finish(int id)
@@ -96,19 +68,12 @@ namespace DevFreela.Application.Services.Implementations
             project.Start();
             //_dbContext.SaveChanges();
 
-            using(var sqlConnection = new SqlConnection(_connectionString))
+            using (var sqlConnection = new SqlConnection(_connectionString))
             {
                 var script = "UPDATE Projects SET Status = @status, StartedAt = @startedAt WHERE Id = @id";
 
                 sqlConnection.Execute(script, new { status = project.Status, startedAt = project.StartedAt, id });
             }
-        }
-
-        public void Update(UpdateProjectInputModel model)
-        {
-            var project = _dbContext.Projects.SingleOrDefault(p => p.Id == model.Id);
-            _dbContext.SaveChanges();
-
         }
     }
 }
