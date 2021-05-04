@@ -1,9 +1,14 @@
 using DevFreela.Application.Commands.CreateComment;
 using DevFreela.Application.Commands.CreateProject;
+using DevFreela.Application.Commands.CreateUser;
 using DevFreela.Application.Commands.DeleteProject;
+using DevFreela.Application.Commands.FinishProject;
+using DevFreela.Application.Commands.StartProject;
 using DevFreela.Application.Commands.UpdateProject;
-using DevFreela.Application.Services.Implementations;
-using DevFreela.Application.Services.Interfaces;
+using DevFreela.Application.Queries.GetAllProjects;
+using DevFreela.Application.Queries.GetAllSkills;
+using DevFreela.Application.Queries.GetProjectById;
+using DevFreela.Application.Queries.GetUser;
 using DevFreela.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -31,16 +36,20 @@ namespace DevFreela.API
             services.AddDbContext<DevFreelaDbContext>(options =>
                             options.UseSqlServer(Configuration.GetConnectionString("DevFreelaCs")));
 
-            services.AddScoped<IProjectService, ProjectService>();
-            services.AddScoped<IUserService, UserService>();
-
             services.AddControllers();
 
             services.AddMediatR(typeof(CreateProjectCommand)); //vai buscar todos os IResquestHandler que estão sendo implementados e irá associar os commands respectivos a eles
-
             services.AddMediatR(typeof(CreateCommentCommand));
             services.AddMediatR(typeof(DeleteProjectCommand));
             services.AddMediatR(typeof(UpdateProjectCommand));
+            services.AddMediatR(typeof(CreateUserCommand));
+            services.AddMediatR(typeof(FinishProjectCommand));
+            services.AddMediatR(typeof(StartProjectCommand));
+
+            services.AddMediatR(typeof(GetAllSkillsQuery));
+            services.AddMediatR(typeof(GetAllProjectsQuery));
+            services.AddMediatR(typeof(GetUserQuery));
+            services.AddMediatR(typeof(GetProjectByIdQuery));
 
             services.AddSwaggerGen(c =>
             {

@@ -1,8 +1,11 @@
 ﻿using DevFreela.Application.Commands.CreateComment;
 using DevFreela.Application.Commands.CreateProject;
 using DevFreela.Application.Commands.DeleteProject;
+using DevFreela.Application.Commands.FinishProject;
+using DevFreela.Application.Commands.StartProject;
 using DevFreela.Application.Commands.UpdateProject;
-using DevFreela.Application.Services.Interfaces;
+using DevFreela.Application.Queries.GetAllProjects;
+using DevFreela.Application.Queries.GetProjectById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -12,28 +15,29 @@ namespace DevFreela.API.Controllers
     [Route("api/[controller]")]
     public class ProjectsController : ControllerBase
     {
-        private readonly IProjectService _projectService;
-
         private readonly IMediator _mediator;
 
-        public ProjectsController(IProjectService projectService, IMediator mediator)
+        public ProjectsController(IMediator mediator)
         {
-            _projectService = projectService;
             _mediator = mediator;
         }
 
         [HttpGet]
-        public IActionResult Get(string query)
+        public async Task<IActionResult> Get(string query)
         {
-            var projects = _projectService.GetAll(query);
+            var getAllProjectsQuery = new GetAllProjectsQuery(query);
+
+            var projects = await _mediator.Send(getAllProjectsQuery);
 
             return Ok(projects);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var project = _projectService.GetById(id);
+            var query = new GetProjectByIdQuery(id);
+
+            var project = await _mediator.Send(query);
 
             return project == null ? NotFound() : Ok(project);
         }
@@ -76,7 +80,9 @@ namespace DevFreela.API.Controllers
         [HttpPut("{id}/start")]
         public IActionResult Start(int id)
         {
-            _projectService.Start(id);
+            var query = new StartProjectCommand(id);
+
+            _mediator.Send(query);
 
             return NoContent();
         }
@@ -84,7 +90,9 @@ namespace DevFreela.API.Controllers
         [HttpPut("{id}/finish")]
         public IActionResult Finish(int id)
         {
-            _projectService.Finish(id);
+            var query = new FinishProjectCommand(id);
+
+            _mediator.Send(query);
 
             return NoContent();
         }
