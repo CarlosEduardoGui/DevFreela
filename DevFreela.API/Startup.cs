@@ -9,7 +9,9 @@ using DevFreela.Application.Queries.GetAllProjects;
 using DevFreela.Application.Queries.GetAllSkills;
 using DevFreela.Application.Queries.GetProjectById;
 using DevFreela.Application.Queries.GetUser;
+using DevFreela.Core.Repositories;
 using DevFreela.Infrastructure.Persistence;
+using DevFreela.Infrastructure.Persistence.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +35,8 @@ namespace DevFreela.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+
             services.AddDbContext<DevFreelaDbContext>(options =>
                             options.UseSqlServer(Configuration.GetConnectionString("DevFreelaCs")));
 
