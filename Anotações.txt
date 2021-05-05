@@ -163,3 +163,13 @@ O que é o CQRS?
 		- Tem suporte a Commands e Queries, delegando eles para serem processados pelo seus respectivos Handlers;
 		- Pacote MediatR e MediatR.Extensions.Microsoft.DependencyInjection
 	
+============================================================================================================================
+Padrão Repository:
+	
+	- Padrão utilizado para encapsular o acesso a dados, e permitir o desacoplamento dos detalhes de implementação
+	ao se utilizar junto com interface;
+	- Componente de dominio do DDD responsável pelo acesso aos objetos armazenados(mas se mespecificações a respeito
+	de sua fonte);
+	- Geralmente, existirá um repositório por AGREGADO;
+	- Por utilizar interfaces no acesso a dados, permite a escrita de Testes Unitários na cama de Application, seja a
+	implementação utilizada a de CQRS ou de serviços de camada de Application;

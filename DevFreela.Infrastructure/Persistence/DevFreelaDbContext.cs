@@ -14,7 +14,7 @@ namespace DevFreela.Infrastructure.Persistence
 
         public DbSet<Skill> Skills { get; set; }
 
-        public DbSet<ProjectComment> Comments { get; set; }
+        public DbSet<ProjectComment> ProjectComments { get; set; }
 
         public DbSet<UserSkill> UserSkills { get; set; }
 

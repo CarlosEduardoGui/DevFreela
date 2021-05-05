@@ -35,12 +35,12 @@ namespace DevFreela.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IProjectRepository, ProjectRepository>();
-
             services.AddDbContext<DevFreelaDbContext>(options =>
                             options.UseSqlServer(Configuration.GetConnectionString("DevFreelaCs")));
 
-            services.AddControllers();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<ISkillRepository, SkillRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddMediatR(typeof(CreateProjectCommand)); //vai buscar todos os IResquestHandler que estão sendo implementados e irá associar os commands respectivos a eles
             services.AddMediatR(typeof(CreateCommentCommand));
@@ -55,6 +55,7 @@ namespace DevFreela.API
             services.AddMediatR(typeof(GetUserQuery));
             services.AddMediatR(typeof(GetProjectByIdQuery));
 
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DevFreela.API", Version = "v1" });

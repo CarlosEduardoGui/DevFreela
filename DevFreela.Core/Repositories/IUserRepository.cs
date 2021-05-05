@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using DevFreela.Core.Entities;
 using System.Threading.Tasks;
 
 namespace DevFreela.Core.Repositories
 {
     public interface IUserRepository
     {
+        Task AddAsync(User user);
+
+        Task<User> GetByIdAsync(int id);
     }
 }
