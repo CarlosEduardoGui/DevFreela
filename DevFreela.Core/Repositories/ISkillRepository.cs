@@ -1,10 +1,11 @@
-﻿using DevFreela.Core.Entities;
+﻿using DevFreela.Core.DTOs;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DevFreela.Core.Repositories
 {
     public interface ISkillRepository
     {
-        Task<Skill> GetById(int id);
+        Task<List<SkillDTO>> GetAll();
     }
 }
