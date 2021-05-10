@@ -12,8 +12,10 @@ using DevFreela.Application.Queries.GetProjectById;
 using DevFreela.Application.Queries.GetUser;
 using DevFreela.Application.Validators;
 using DevFreela.Core.Repositories;
+using DevFreela.Core.Services;
 using DevFreela.Infrastructure.Persistence;
 using DevFreela.Infrastructure.Persistence.Repositories;
+using DevFreela.Infrastructure.Services;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -44,6 +46,7 @@ namespace DevFreela.API
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<ISkillRepository, SkillRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAuthService, AuthService>();
 
             services.AddMediatR(typeof(CreateProjectCommand)); //vai buscar todos os IResquestHandler que estão sendo implementados e irá associar os commands respectivos a eles
             services.AddMediatR(typeof(CreateCommentCommand));
