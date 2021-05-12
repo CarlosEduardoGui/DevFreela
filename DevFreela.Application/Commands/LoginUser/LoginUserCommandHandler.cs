@@ -2,7 +2,6 @@
 using DevFreela.Core.Repositories;
 using DevFreela.Core.Services;
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,7 +22,7 @@ namespace DevFreela.Application.Commands.LoginUser
         {
             var passwordHash = _authService.ComputeSha256Hash(request.Password);
 
-            var user = await _userRepository.GetUserByEmailAndPasswordAsync(request.Email, request.Password);
+            var user = await _userRepository.GetUserByEmailAndPasswordAsync(request.Email, passwordHash);
 
             if (user == null)
                 return null;

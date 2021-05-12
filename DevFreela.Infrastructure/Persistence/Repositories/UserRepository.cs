@@ -1,7 +1,6 @@
 ﻿using DevFreela.Core.Entities;
 using DevFreela.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DevFreela.Infrastructure.Persistence.Repositories
