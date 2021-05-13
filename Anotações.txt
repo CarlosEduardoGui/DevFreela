@@ -173,3 +173,18 @@ Padrão Repository:
 	- Geralmente, existirá um repositório por AGREGADO;
 	- Por utilizar interfaces no acesso a dados, permite a escrita de Testes Unitários na cama de Application, seja a
 	implementação utilizada a de CQRS ou de serviços de camada de Application;
+============================================================================================================================
+Testes Unitários:
+	
+	- Métodos que verificam o funcionamento de unidades de código, vulgo métodos, e seus objetos associados;
+	- Testam o fluxo do método que está sob teste, com o objetivo de verificar se o comportamento está correto;
+	- É importante diferenciá-los dos Testes de Integração, que englobam dependências externas (como acesso a banco de dados ou APIs);
+============================================================================================================================
+Mocks:
+
+	- Mock é um objeto que simulam o comportamento de objetos reais, permitindo a definição de retornos específicos;
+	- Métodos:
+		- Setup: Método que permite a definição de comportamento de uma interface, sendo usada em conjunto com Return e Throws;
+		- It.List<T>(TValue) ou It.IsAny<T>(): é um conjunto com o Setup, permite definir confições aos parâmetros ao configurar
+		comportamento de uma interface;
+		- Verify(): permite verificar quantas vezes o método foi chamado;
